@@ -26,11 +26,13 @@ Function EncodeBase64ToFile {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true, Position = 0)][String] $FilePath ,
-        [Parameter(Mandatory = $false)][String]$DestinationBase64StringFile = "$($Env:USERPROFILE)\Documents\Base64EncodedStringFile.txt"
+        [Parameter(Mandatory = $false)][String]$DestinationBase64StringFile = "$($Env:USERPROFILE)\Documents\Base64EncodedStringFile.txt",
+        # Optionnally compress the Base64 file
+        [Parameter(Mandatory = $false)][Switch]$Compress
     )
     #SamHeader
     $StopWatch = [System.Diagnostics.Stopwatch]::StartNew()
-    Write-Verbose "Beginning Try sequence with current options $FilePath and $DestinationBase64StringFile ..."
+    Write-Verbose "Beginning TRY sequence with current options $FilePath and $DestinationBase64StringFile ..."
     Try {
         Write-Verbose "Trying to convert file specified to Base64 string... it can be long if the file you try to encode is big !"
         $Base64String = [Convert]::ToBase64String([IO.File]::ReadAllBytes($FilePath))
@@ -42,6 +44,21 @@ Function EncodeBase64ToFile {
         Write-Verbose "Something went wrong ... We're in the CATCH section ..."
         Write-Host "File specified $FilePath not found ... please use an existing file path and try again !" -ForegroundColor Yellow -BackgroundColor Red
     }
+
+    If ($Compress){
+        Write-Verbose "Specified the -Compress parameter, compressing file... "
+        $CompressArchiveFileName = "$($Env:USERPROFILE)\Documents\CompressedBase64File_$(Get-Date -F ddMMMyyyy_hhmmss).zip"
+        Write-Verbose "Entering TRY sequence to try to compress the Base64 file to $CompressArchiveFileName"
+        Try{
+            Write-Verbose "Trying to compress..."
+            Compress-Archive -LiteralPath $DestinationBase64StringFile -DestinationPath $CompressArchiveFileName -CompressionLevel Optimal -Force
+            Write-Verbose "File successfully compressed to $CompressArchiveFileName !"
+        } Catch {
+            Write-Verbose "Something happened ... unable to compress the file or to write the destination for compression..."
+            Write-Host "Unable to compress to $CompressArchiveFileName ... "
+        }
+    }
+
     $StopWatch.Stop()
     $StopWatch.Elapsed | Fl TotalSeconds
 
@@ -60,10 +77,11 @@ Function DecodeBase64StringFromFile {
 
     $StopWatch = [System.Diagnostics.Stopwatch]::StartNew()
     Write-Verbose "Beginning TRY sequence with parameters specified -FilePathContainingBase64Code as $FilePathContainingBase64Code and -DestinationFile as $DestinationFile"
-
     Try {
+        Write-Verbose "Trying to read the Base 64 content from file specified : $FilePathContainingBase64Code"
         $Base64Content = Get-Content -Path $FilePathContainingBase64Code
         [IO.File]::WriteAllBytes($DestinationFile, [Convert]::FromBase64String($Base64Content))
+        Write-Host "Success ! File written: $DestinationFile" -BackgroundColor Green -ForegroundColor Black
     } Catch {
         Write-Verbose "Something went wrong ... We're in the CATCH section..."
         Write-Host "File specified $FilePathContainingBase64Code inexistant or destination file $Destination not specified ..." -ForegroundColor Yellow -BackgroundColor Red
@@ -80,5 +98,5 @@ $FileName = "C:\Users\sammy\OneDrive\Utils\timber.exe"
 # The full path of the file we will decode the Base64 to "rebuild" that file
 $DestBase64EncodedFile= "C:\Users\sammy\OneDrive\Utils\timberConv.txt"
 
- #EncodeBase64ToFile -FilePath $FileName -DestinationBase64StringFile $DestBase64EncodedFile -Verbose
-DecodeBase64StringFromFile -FilePathContainingBase64Code $DestBase64EncodedFile -DestinationFile $FileName
+ EncodeBase64ToFile -FilePath $FileName -DestinationBase64StringFile $DestBase64EncodedFile -Verbose -Compress
+# DecodeBase64StringFromFile -FilePathContainingBase64Code $DestBase64EncodedFile -DestinationFile $FileName
