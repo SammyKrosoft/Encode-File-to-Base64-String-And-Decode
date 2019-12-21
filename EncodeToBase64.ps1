@@ -32,7 +32,7 @@ Function EncodeBase64ToFile {
     )
     #SamHeader
     $StopWatch = [System.Diagnostics.Stopwatch]::StartNew()
-    Write-Verbose "Beginning TRY sequence with current options $FilePath and $DestinationBase64StringFile ..."
+    Write-Verbose "Beginning TRY sequence with current options -Filepath $FilePath and -DestinationBase64StringFile $DestinationBase64StringFile ..."
     Try {
         Write-Verbose "Trying to convert file specified to Base64 string... it can be long if the file you try to encode is big !"
         $Base64String = [Convert]::ToBase64String([IO.File]::ReadAllBytes($FilePath))
@@ -93,10 +93,10 @@ Function DecodeBase64StringFromFile {
 # Example with the above strings (file Timber.exe)
 
 # The full path to the file we want to encode to Base64 ASCII characters so that it's considered by antivirus as Text files, and not filtered out
-$FileName = "C:\Users\sammy\OneDrive\Utils\timber.exe"
+$FileName = "$($env:USERPROFILE)\Downloads\OfflineExch_180233.zip"
 
 # The full path of the file we will decode the Base64 to "rebuild" that file
-$DestBase64EncodedFile= "C:\Users\sammy\OneDrive\Utils\timberConv.txt"
+$DestBase64EncodedFile= "C:\Users\sammy\OneDrive\Utils\OfflineExch_180233_b64.txt"
 
  EncodeBase64ToFile -FilePath $FileName -DestinationBase64StringFile $DestBase64EncodedFile -Verbose -Compress
 # DecodeBase64StringFromFile -FilePathContainingBase64Code $DestBase64EncodedFile -DestinationFile $FileName
