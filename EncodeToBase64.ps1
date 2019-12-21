@@ -50,7 +50,7 @@ Function EncodeBase64ToFile {
         $CompressArchiveFileName = "$($Env:USERPROFILE)\Documents\CompressedBase64File_$(Get-Date -F ddMMMyyyy_hhmmss).zip"
         Write-Verbose "Entering TRY sequence to try to compress the Base64 file to $CompressArchiveFileName"
         Try{
-            Write-Verbose "Trying to compress..."
+            Write-Verbose "Trying to compress (REQUIRES POWERSHELL 5 and above !!)..."
             Compress-Archive -LiteralPath $DestinationBase64StringFile -DestinationPath $CompressArchiveFileName -CompressionLevel Optimal -Force
             Write-Verbose "File successfully compressed to $CompressArchiveFileName !"
         } Catch {
