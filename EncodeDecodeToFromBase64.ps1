@@ -1,10 +1,10 @@
 ﻿Function RawExecuteBase64Converter{
 
     # The full path to the file we want to encode to Base64 ASCII characters so that it's considered by antivirus as Text files, and not filtered out
-    $FileName = "C:\Users\sammy\OneDrive\Utils\timber.exe"
+    $FileName = "C:\temp\timber.exe"
 
     # The full path of the file we will decode the Base64 to "rebuild" that file
-    $DestBase64EncodedFile= "C:\Users\sammy\OneDrive\Utils\timberConv.txt"
+    $DestBase64EncodedFile= "C:\temp\timberConv.txt"
 
     # Executing the function to convert the file $FileName, to Base64, reading all bytes to ensure we don't lose anything of the file integrity
     # Note1: the content in Base64 will be stored in the $Base64String PowerShell variable, which we will save into a file.
@@ -26,12 +26,19 @@ Function EncodeBase64ToFile {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true, Position = 0)][String] $FilePath ,
-        [Parameter(Mandatory = $false)][String]$DestinationBase64StringFile = "$($Env:USERPROFILE)\Documents\Base64EncodedStringFile.txt",
+        [Parameter(Mandatory = $false)][String]$DestinationBase64StringFile,
         # Optionnally compress the Base64 file
         [Parameter(Mandatory = $false)][Switch]$Compress
     )
     #SamHeader
     $StopWatch = [System.Diagnostics.Stopwatch]::StartNew()
+
+If ($DestinationBase64StringFile -eq "" -or $DestinationBase64StringFile -eq $Null) {
+    $strFileName = (Get-Item $FileName).Name
+    $strFileNameOneWord = $strFileName -join "\."
+    $DestinationBase64StringFile = $strFileNameOneWord + ".txt"
+}
+
     Write-Verbose "Beginning TRY sequence with current options -Filepath $FilePath and -DestinationBase64StringFile $DestinationBase64StringFile ..."
     Try {
         Write-Verbose "Trying to convert file specified to Base64 string... it can be long if the file you try to encode is big !"
@@ -75,6 +82,16 @@ Function DecodeBase64StringFromFile {
         $DestinationFile
     )
 
+
+
+if ($DestinationFile -eq "" -or $DestinationFile -eq $null){
+    $DestinationFileExtension = $FilePathContainingBase64Code.Substring($FilePathContainingBase64Code.Length - 3)
+    $DestinationFileNameWithoutExtension = $FilePathContainingBase64Code.Substring(0, $FilePathContainingBase64Code.Length - 3)
+    $DestinationFile = $DestinationFileNameWithoutExtension + "." + $DestinationFileExtension
+}
+
+$DestinationFile
+
     $StopWatch = [System.Diagnostics.Stopwatch]::StartNew()
     Write-Verbose "Beginning TRY sequence with parameters specified -FilePathContainingBase64Code as $FilePathContainingBase64Code and -DestinationFile as $DestinationFile"
     Try {
@@ -93,10 +110,10 @@ Function DecodeBase64StringFromFile {
 # Example with the above strings (file Timber.exe)
 
 # The full path to the file we want to encode to Base64 ASCII characters so that it's considered by antivirus as Text files, and not filtered out
-$FileName = "$($env:USERPROFILE)\Downloads\OfflineExch_180233.zip"
+$FileName = "$($env:USERPROFILE)\Downloads\MyFile.exe"
 
 # The full path of the file we will decode the Base64 to "rebuild" that file
-$DestBase64EncodedFile= "C:\Users\sammy\OneDrive\Utils\OfflineExch_180233_b64.txt"
+$DestBase64EncodedFile= "C:\temp\MyFileExe.txt"
 
  EncodeBase64ToFile -FilePath $FileName -DestinationBase64StringFile $DestBase64EncodedFile -Verbose -Compress
 # DecodeBase64StringFromFile -FilePathContainingBase64Code $DestBase64EncodedFile -DestinationFile $FileName
