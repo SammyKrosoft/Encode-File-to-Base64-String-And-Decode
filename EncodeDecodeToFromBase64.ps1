@@ -83,8 +83,14 @@ Function DecodeBase64StringFromFile {
     )
 
 
+# Below sequence transforms a file name previously converted with EncodeBase64ToFile PowerShell function into the filename extension
+# Note that the first thing we do is removing the .txt extension (4 last characters) and then the last 3 letters are the file extension
+# and the other letters are the file name withtou the extension... and finally we re-build the file name by concatenating
+# the file name without extension, with a dot, with the extension (3 last letters)
+# Example : $FilePathContainingBase64Code = "Timberexe.txt" that will become Timberexe, then Timber, then Timber.exe
 
 if ($DestinationFile -eq "" -or $DestinationFile -eq $null){
+    $FilePathContainingBase64Code = $FilePathContainingBase64Code.Substring(0,$FilePathContainingBase64Code.Length - 4)
     $DestinationFileExtension = $FilePathContainingBase64Code.Substring($FilePathContainingBase64Code.Length - 3)
     $DestinationFileNameWithoutExtension = $FilePathContainingBase64Code.Substring(0, $FilePathContainingBase64Code.Length - 3)
     $DestinationFile = $DestinationFileNameWithoutExtension + "." + $DestinationFileExtension
