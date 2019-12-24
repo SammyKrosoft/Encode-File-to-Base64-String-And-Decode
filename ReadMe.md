@@ -1,4 +1,4 @@
-#EncodeDecodeToFromBase64.ps1 script - about to become a module
+# EncodeDecodeToFromBase64.ps1 script - about to become a module
 
 Before I understand PowerShell modules fully, we for now publish it as a .ps1 script, that you must dot source to be able to use the functions defined inside this script.
 
