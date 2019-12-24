@@ -4,7 +4,7 @@ Before transforming it to a PowerShell module, we for now publish it as a .ps1 s
 
 ## Mode information - How to use the functions
 
-You must dot source this script to be able to use the functions described below :-)
+You must dot source this script to be able to use the functions described below :grin: :grin:
 
 To dot source this script, you must type a dot, then a space, then the path to the script - if it's a script you're calling from the current directory, the path before the file name is "dot-back-slash" aka ".\\" and then the file name:
 ```powershell
