@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 1.0
+.VERSION 1.2
 
 .GUID 0c680374-770b-4ec8-a924-ab9bdb1c4ace
 
@@ -14,9 +14,9 @@
 
 .PROJECTURI https://github.com/SammyKrosoft/Encode-File-to-Base64-String-And-Decode
 
-.ICONURI N/A
-
-.RELEASENOTES N/A
+.RELEASENOTES
+v1.2 - Added link to the Github original repository
+v1.1 - Added explanations to dot source this script to be able to use the EncodeBase64 / DecodeBase64 functions
 
 #>
 
@@ -32,14 +32,24 @@
 
 
  .EXAMPLE
- DecodeBase64StringFromFile -FilePathContainingBase64Code $DestBase64EncodedFile -DestinationFile $FileName
+ DecodeBase64StringFromFile -FilePathContainingBase64Code $DestBase64EncodedFile
 
+This will decode a file with Base64content, and convert it to a file, using the file name, and the 3 last
+characters as the "new" extension.
 
+.LINK
+https://github.com/SammyKrosoft/Encode-File-to-Base64-String-And-Decode
 
 #> 
+cls
+Write-Host "you must dot source this script to be able to use the functions described below :-)" -BackgroundColor red -ForegroundColor Yellow
+Write-Host "To dot source this script, type "". .\EncodeDecodeToFromBase64.ps1"" - note the ""dot"" before the "".\EncodeDecodeToFromBase64.ps1"" script ;-)"
+write-host "`n"
 Write-Host "You now have 2 functions you can use in this PowerShell session:"
-WRite-Host "EncodeBase64ToFile -FilePath <path of the file to encode in Base64> [-Compress] [-DestinationBase64StringFile <Path of the destination Base64 file (Optional - will generate from original file name if not specified)>]" -ForegroundColor Yellow
-Write-Host "DecodeBase64StringFromFile -FilePAthContainingBase64Code <Path of the file to decode> [-DestinationFile <Path of the destination file (optional - will generate from Base64 file name if not specified)>]" -ForegroundColor Yellow
+WRite-Host "EncodeBase64ToFile -FilePath <path of the file to encode in Base64> [-Compress] [-DestinationBase64StringFile <Path of the destination Base64 file (Optional - will generate from original file name if not specified)>]" -ForegroundColor yellow -BackgroundColor blue
+write-host "`n"
+Write-Host "DecodeBase64StringFromFile -FilePAthContainingBase64Code <Path of the file to decode> [-DestinationFile <Path of the destination file (optional - will generate from Base64 file name if not specified)>]" -ForegroundColor yellow -BackgroundColor blue
+write-host "`n"
 Write-Host "Usage:"
 Write-Host "----------------------------------------------------------------------------------------------------------------------"
 Write-Host "To encode a file (EXE, JPG, whatever) to a Base64 string in a file:"
