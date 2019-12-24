@@ -1,11 +1,25 @@
 # EncodeDecodeToFromBase64.ps1 script - about to become a module
 
-Before I understand PowerShell modules fully, we for now publish it as a .ps1 script, that you must dot source to be able to use the functions defined inside this script.
+Before transforming it to a PowerShell module, we for now publish it as a .ps1 script, that you must dot source to be able to use the functions defined inside this script.
 
 ## Mode information - How to use the functions
 
-You must dot source this script to be able to use the functions described below :-)" -BackgroundColor red -ForegroundColor Yellow
-To dot source this script, type "". .\EncodeDecodeToFromBase64.ps1"" - note the ""dot"" before the "".\EncodeDecodeToFromBase64.ps1"" script ;-)"
+You must dot source this script to be able to use the functions described below :-)
+
+To dot source this script, you must type a dot, then a space, then the path to the script - if it's a script you're calling from the current directory, the path before the file name is "dot-back-slash" aka ".\\" and then the file name:
+```powershell
+. .\EncodeDecodeToFromBase64.ps1
+```
+
+About dot sourcing, quoting from docs.microsoft.com (link below the extract):
+
+*The dot sourcing feature lets you run a script in the current scope instead of in the script scope. When you run a script that is dot sourced, the commands in the script run as though you had typed them at the command prompt. The functions, variables, aliases, and drives that the script creates are created in the scope in which you are working. After the script runs, you can use the created items and access their values in your session.*
+
+*To dot source a script, type a dot (.) and a space before the script path.*
+
+
+<a href = "https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_scripts?view=powershell-6" target = "_blank">Link about dot sourcing:</a>
+
 
 ## 2 functions available in this script
 
