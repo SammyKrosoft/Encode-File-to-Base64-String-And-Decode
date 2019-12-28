@@ -37,7 +37,7 @@ DecodeBase64StringFromFile -FilePAthContainingBase64Code <Path of the file to de
 To encode a file (EXE, JPG, whatever) to a Base64 string in a file:"
 
 ```powershell
-EncodeBase64ToFile -FilePath c:\temp\myExecutable.exe" -ForegroundColor Yellow
+EncodeBase64ToFile -FilePath c:\temp\myExecutable.exe
 ```
 => will encode the ""myExecutable.exe"" file" 
 into a base64 file named myExecutableexe.txt (extension merged in the file name, and appended "".txt"" new
@@ -46,7 +46,7 @@ extension.
 
 To decode a previously Base64 encoded file into its original form:"
 ```powershell
-DecodeBase64StringFromFile -FilePathContainingBase64Code c:\temp\myExecutableexe.txt" -ForegroundColor Yellow
+DecodeBase64StringFromFile -FilePathContainingBase64Code c:\temp\myExecutableexe.txt
 ```
 
 => will decode the "myExecutableexe.txt" (note the "exe" substring in the file name) and rename it to "myExecutable.exe"
