@@ -24,11 +24,11 @@ About dot sourcing, quoting from docs.microsoft.com (link below the extract):
 ## 2 functions available in this script
 
 ```powershell
-EncodeBase64ToFile -FilePath <path of the file to encode in Base64> [-Compress] [-DestinationBase64StringFile <Path of the destination Base64 file (Optional - will generate from original file name if not specified)>]" -ForegroundColor yellow -BackgroundColor blue
+EncodeBase64ToFile -FilePath <path of the file to encode in Base64> [-Compress] [-DestinationBase64StringFile <Path of the destination Base64 file (Optional - will generate from original file name if not specified)>]
 ```
 
 ```powershell
-DecodeBase64StringFromFile -FilePAthContainingBase64Code <Path of the file to decode> [-DestinationFile <Path of the destination file (optional - will generate from Base64 file name if not specified)>]" -ForegroundColor yellow -BackgroundColor blue
+DecodeBase64StringFromFile -FilePAthContainingBase64Code <Path of the file to decode> [-DestinationFile <Path of the destination file (optional - will generate from Base64 file name if not specified)>]
 ```
 
 ## Usage
