@@ -32,7 +32,7 @@ v1.1 - Added explanations to dot source this script to be able to use the Encode
 
 
  .EXAMPLE
- DecodeBase64StringFromFile -FilePathContainingBase64Code $DestBase64EncodedFile
+ DecodeBase64FromFile -FilePathContainingBase64Code $DestBase64EncodedFile
 
 This will decode a file with Base64content, and convert it to a file, using the file name, and the 3 last
 characters as the "new" extension.
@@ -48,7 +48,7 @@ write-host "`n"
 Write-Host "You now have 2 functions you can use in this PowerShell session:"
 WRite-Host "EncodeBase64ToFile -FilePath <path of the file to encode in Base64> [-Compress] [-DestinationBase64StringFile <Path of the destination Base64 file (Optional - will generate from original file name if not specified)>]" -ForegroundColor yellow -BackgroundColor blue
 write-host "`n"
-Write-Host "DecodeBase64StringFromFile -FilePAthContainingBase64Code <Path of the file to decode> [-DestinationFile <Path of the destination file (optional - will generate from Base64 file name if not specified)>]" -ForegroundColor yellow -BackgroundColor blue
+Write-Host "DecodeBase64FromFile -FilePAthContainingBase64Code <Path of the file to decode> [-DestinationFile <Path of the destination file (optional - will generate from Base64 file name if not specified)>]" -ForegroundColor yellow -BackgroundColor blue
 write-host "`n"
 Write-Host "Usage:"
 Write-Host "----------------------------------------------------------------------------------------------------------------------"
@@ -59,7 +59,7 @@ Write-Host "    into a base64 file named myExecutableexe.txt (extension merged i
 Write-Host "    extension."
 Write-Host "-----------------------------------------------------------------------------------------------------------------------"
 Write-Host "To decode a previously Base64 encoded file into its original form:"
-Write-Host "    -> DecodeBase64StringFromFile -FilePathContainingBase64Code c:\temp\myExecutableexe.txt" -ForegroundColor Yellow
+Write-Host "    -> DecodeBase64FromFile -FilePathContainingBase64Code c:\temp\myExecutableexe.txt" -ForegroundColor Yellow
 Write-Host "    => will decode the ""myExecutableexe.txt"" (note the ""exe"" substring in the file name) and rename it to ""myExecutable.exe"" "
 
 
@@ -121,7 +121,7 @@ Function EncodeBase64ToFile {
 
 }
 
-Function DecodeBase64StringFromFile {
+Function DecodeBase64FromFile {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $True, Position = 0)]
