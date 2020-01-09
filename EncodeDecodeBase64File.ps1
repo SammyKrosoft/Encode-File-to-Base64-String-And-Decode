@@ -84,7 +84,7 @@ Function EncodeBase64ToFile {
 
     If ($DestinationBase64StringFile -eq "" -or $DestinationBase64StringFile -eq $Null) {
         Write-Verbose "-DestinationBase64StringFile not specified ...  constructing with current file name specified: $FilePath"
-        $strFileName = (Get-Item $FileName).Name
+        $strFileName = (Get-Item $FilePath).Name
         $strFileNameOneWord = $strFileName -join "\."
         $DestinationBase64StringFile = $strFileNameOneWord + ".txt"
         Write-Verbose "-DestinationBase64StringFile constructed from $FilePath : $DestinationBase64StringFile"
