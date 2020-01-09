@@ -154,7 +154,7 @@ Function DecodeBase64FromFile {
         Write-verbose "FilePathContainingBase64WithoutTXT   = $FilePathContainingBase64CodeWithoutTXT"
         $DestinationFileExtension = $FilePathContainingBase64CodeWithoutTXT.Substring($FilePathContainingBase64CodeWithoutTXT.Length - 3)
         Write-Verbose "DestinationFileExtension             = $DestinationFileExtension"
-        $DestinationFileNameWithoutExtension = $FilePathContainingBase64Code.Substring(0, $FilePathContainingBase64Code.Length - 3)
+        $DestinationFileNameWithoutExtension = $FilePathContainingBase64CodeWithoutTXT.Substring(0, $FilePathContainingBase64CodeWithoutTXT.Length - 3)
         Write-Verbose "DEstinationFileNameWithoutExtension  = $DestinationFileNameWithoutExtension"
         $DestinationFile = $DestinationFileNameWithoutExtension + "." + $DestinationFileExtension
         Write-Verbose "Destination file constructed: $DestinationFile"
