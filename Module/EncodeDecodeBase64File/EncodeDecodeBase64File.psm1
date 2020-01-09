@@ -43,8 +43,8 @@ https://github.com/SammyKrosoft/Encode-File-to-Base64-String-And-Decode
 
 #> 
 cls
-Write-Host "you must dot source this script to be able to use the functions described below :-)" -BackgroundColor red -ForegroundColor Yellow
-Write-Host "To dot source this script, type "". .\EncodeDecodeToFromBase64.ps1"" - note the ""dot"" before the "".\EncodeDecodeToFromBase64.ps1"" script ;-)"
+Write-Host "This is a module containing 2 PowerShell functions." -BackgroundColor red -ForegroundColor Yellow
+Write-Host "EncodeBase64ToFile and DecodeBase64FromFile functions"
 write-host "`n"
 Write-Host "You now have 2 functions you can use in this PowerShell session:"
 WRite-Host "EncodeBase64ToFile -FilePath <path of the file to encode in Base64> [-Compress] [-DestinationBase64StringFile <Path of the destination Base64 file (Optional - will generate from original file name if not specified)>]" -ForegroundColor yellow -BackgroundColor blue
