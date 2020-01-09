@@ -128,7 +128,7 @@ Function DecodeBase64FromFile {
         [Parameter(Mandatory = $True, Position = 0)]
         [String]
         $FilePathContainingBase64Code,
-        [Parameter(Mandatory = $true, Position = 1)]
+        [Parameter(Mandatory = $false, Position = 1)]
         [String]
         $DestinationFile
     )
