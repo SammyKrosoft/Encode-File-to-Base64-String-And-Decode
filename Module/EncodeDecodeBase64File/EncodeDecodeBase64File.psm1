@@ -85,7 +85,7 @@ Function EncodeBase64ToFile {
     If ($DestinationBase64StringFile -eq "" -or $DestinationBase64StringFile -eq $Null) {
         Write-Verbose "-DestinationBase64StringFile not specified ...  constructing with current file name specified: $FilePath"
         $strFileName = (Get-Item $FilePath).Name
-        $strFileNameOneWord = $strFileName -join "\."
+        $strFileNameOneWord = ($strFileName -split "\.") -join ""
         $DestinationBase64StringFile = $strFileNameOneWord + ".txt"
         Write-Verbose "-DestinationBase64StringFile constructed from $FilePath : $DestinationBase64StringFile"
     }
@@ -150,8 +150,8 @@ Function DecodeBase64FromFile {
 
     if ($DestinationFile -eq "" -or $DestinationFile -eq $null){
         Write-Verbose "-DestinationFile parameter not specified ... constructing with current Base64 file name specified: $FilePathContainingBase64Code"
-        $FilePathContainingBase64Code = $FilePathContainingBase64Code.Substring(0,$FilePathContainingBase64Code.Length - 4)
-        $DestinationFileExtension = $FilePathContainingBase64Code.Substring($FilePathContainingBase64Code.Length - 3)
+        $FilePathContainingBase64CodeWithoutExt = $FilePathContainingBase64Code.Substring(0,$FilePathContainingBase64Code.Length - 4)
+        $DestinationFileExtension = $FilePathContainingBase64CodeWithoutExt.Substring($FilePathContainingBase64Code.Length - 3)
         $DestinationFileNameWithoutExtension = $FilePathContainingBase64Code.Substring(0, $FilePathContainingBase64Code.Length - 3)
         $DestinationFile = $DestinationFileNameWithoutExtension + "." + $DestinationFileExtension
         Write-Verbose "Destination file constructed: $DestinationFile"
