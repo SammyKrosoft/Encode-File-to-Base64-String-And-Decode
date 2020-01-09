@@ -150,9 +150,12 @@ Function DecodeBase64FromFile {
 
     if ($DestinationFile -eq "" -or $DestinationFile -eq $null){
         Write-Verbose "-DestinationFile parameter not specified ... constructing with current Base64 file name specified: $FilePathContainingBase64Code"
-        $FilePathContainingBase64CodeWithoutExt = $FilePathContainingBase64Code.Substring(0,$FilePathContainingBase64Code.Length - 4)
-        $DestinationFileExtension = $FilePathContainingBase64CodeWithoutExt.Substring($FilePathContainingBase64Code.Length - 3)
+        $FilePathContainingBase64CodeWithoutTXT = $FilePathContainingBase64Code.Substring(0,$FilePathContainingBase64Code.Length - 4)
+        Write-verbose "FilePathContainingBase64WithoutTXT   = $FilePathContainingBase64CodeWithoutTXT"
+        $DestinationFileExtension = $FilePathContainingBase64CodeWithoutTXT.Substring($FilePathContainingBase64CodeWithoutTXT.Length - 3)
+        Write-Verbose "DestinationFileExtension             = $DestinationFileExtension"
         $DestinationFileNameWithoutExtension = $FilePathContainingBase64Code.Substring(0, $FilePathContainingBase64Code.Length - 3)
+        Write-Verbose "DEstinationFileNameWithoutExtension  = $DestinationFileNameWithoutExtension"
         $DestinationFile = $DestinationFileNameWithoutExtension + "." + $DestinationFileExtension
         Write-Verbose "Destination file constructed: $DestinationFile"
     } Else {
