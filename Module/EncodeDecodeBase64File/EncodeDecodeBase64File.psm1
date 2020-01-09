@@ -158,6 +158,13 @@ Function DecodeBase64FromFile {
         Write-Verbose "DEstinationFileNameWithoutExtension  = $DestinationFileNameWithoutExtension"
         $DestinationFile = $DestinationFileNameWithoutExtension + "." + $DestinationFileExtension
         Write-Verbose "Destination file constructed: $DestinationFile"
+        # Adding local user Downloads folder path for destination file - removing .\ first
+        $DestinationFileWithoutLocalPathNotation = $DestinationFile.Substring(2,$DestinationFile.Length)
+        Write-Verbose "DEstinationFile without local path notation  =   $DestinationFileWithoutLocalPathNotation"
+        #Adding Downloads folder
+        $DestinationFile = ($Env:userprofile) + "\Downloads\" + $DestinationFileWithoutLocalPathNotation
+        Write-Verbose "Final destination file               =   $DestinationFile"
+
     } Else {
         Write-Verbose "-DestinationFile parameter specified : $DestinationFile"
     }
