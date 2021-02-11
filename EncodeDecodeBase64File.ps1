@@ -79,7 +79,7 @@ Function EncodeBase64ToFile {
         Write-Host "File specified $FilePath not found ... please use an existing file path and try again !" -ForegroundColor Yellow -BackgroundColor Red
         $StopWatch.Stop()
         $StopWatch.Elapsed | Fl TotalSeconds
-        Exit
+        Return
     } Else {
         $objFile = Get-ChildItem $FilePath
     }
@@ -97,9 +97,9 @@ Function EncodeBase64ToFile {
         Write-Verbose "Trying to convert file specified to Base64 string... it can be long if the file you try to encode is big !"
         $Base64String = [Convert]::ToBase64String([IO.File]::ReadAllBytes($objFile.VersionInfo.FileName))
         Write-Verbose "Finished converting with success !"
-        Write-Verbose "Pouring the Base64 generated code into the destination file $($env:userprofile)\Documents\$DestinationBase64StringFile"
-        Set-Content -Value $Base64String -Path "$($env:userprofile)\Documents\$DestinationBase64StringFile"
-        Write-Host "Done !" -ForegroundColor Green
+        Write-Verbose "Pouring the Base64 generated code into the destination file $.\$DestinationBase64StringFile"
+        Set-Content -Value $Base64String -Path ".\$DestinationBase64StringFile"
+        Write-Host "Success ! File written: .\$DestinationBase64StringFile" -BackgroundColor Green -ForegroundColor Black
     } Catch {
         Write-Verbose "Something went wrong ... We're in the CATCH section ..."
         Write-Host "Something went wrong :-("  -ForegroundColor Yellow -BackgroundColor Red
@@ -107,7 +107,7 @@ Function EncodeBase64ToFile {
 
     If ($Compress){
         Write-Verbose "Specified the -Compress parameter, compressing file... "
-        $CompressArchiveFileName = "$($Env:USERPROFILE)\Documents\$($DestinationBase64StringFile)_$(Get-Date -F ddMMMyyyy_hhmmss).zip"
+        $CompressArchiveFileName = ".\$($DestinationBase64StringFile)_$(Get-Date -F ddMMMyyyy_hhmmss).zip"
         Write-Verbose "Entering TRY sequence to try to compress the Base64 file to $CompressArchiveFileName"
         Try {
             Write-Verbose "Trying to compress (REQUIRES POWERSHELL 5 and above !!)..."
