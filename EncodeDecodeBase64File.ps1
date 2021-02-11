@@ -80,11 +80,13 @@ Function EncodeBase64ToFile {
         $StopWatch.Stop()
         $StopWatch.Elapsed | Fl TotalSeconds
         Exit
+    } Else {
+        $objFile = Get-ChildItem $FilePath
     }
 
-    If ($DestinationBase64StringFile -eq "" -or $DestinationBase64StringFile -eq $Null) {
+    If ([string]::IsNullOrEmpty($DestinationBase64StringFile)) {
         Write-Verbose "-DestinationBase64StringFile not specified ...  constructing with current file name specified: $FilePath"
-        $strFileName = (Get-Item $FilePath).Name
+        $strFileName = ($objFile).Name
         $strFileNameOneWord = ($strFileName -split "\.") -join ""
         $DestinationBase64StringFile = $strFileNameOneWord + ".txt"
         Write-Verbose "-DestinationBase64StringFile constructed from $FilePath : $DestinationBase64StringFile"
@@ -93,7 +95,7 @@ Function EncodeBase64ToFile {
     Write-Verbose "Beginning TRY sequence with current options -Filepath $FilePath and -DestinationBase64StringFile $DestinationBase64StringFile ..."
     Try {
         Write-Verbose "Trying to convert file specified to Base64 string... it can be long if the file you try to encode is big !"
-        $Base64String = [Convert]::ToBase64String([IO.File]::ReadAllBytes($FilePath))
+        $Base64String = [Convert]::ToBase64String([IO.File]::ReadAllBytes($objFile.VersionInfo.FileName))
         Write-Verbose "Finished converting with success !"
         Write-Verbose "Pouring the Base64 generated code into the destination file $($env:userprofile)\Documents\$DestinationBase64StringFile"
         Set-Content -Value $Base64String -Path "$($env:userprofile)\Documents\$DestinationBase64StringFile"
