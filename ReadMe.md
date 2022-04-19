@@ -2,7 +2,7 @@
 
 ## Standalone Encode and Decode scripts:
 
-You can download the scripts separately (one for Encoding a file to Base64, one for decoding a file from Base64 encoded file) - **Right-Click "Save As" to save it to your drive**:
+You can download the scripts separately (one for Encoding a file to Base64, one for decoding a file from Base64 encoded file) - _**Right-Click "Save link as..." to save it to your drive**_:
 
 [Download the standalone EncodeBase64ToFile.ps1](https://raw.githubusercontent.com/SammyKrosoft/Encode-File-to-Base64-String-And-Decode/master/EncodeBase64ToFile.ps1)
 
