@@ -1,5 +1,14 @@
 # EncodeDecodeBase64File.ps1 script - about to become a module
 
+## Standalone Encode and Decode scripts:
+
+You can download the scripts separately (one for Encoding a file to Base64, one for decoding a file from Base64 encoded file) - **Right-Click "Save As" to save it to your drive**:
+
+[Download the standalone EncodeBase64ToFile.ps1](https://raw.githubusercontent.com/SammyKrosoft/Encode-File-to-Base64-String-And-Decode/master/EncodeBase64ToFile.ps1)
+[Download the standalone DecodeBase64File.ps1](https://raw.githubusercontent.com/SammyKrosoft/Encode-File-to-Base64-String-And-Decode/master/DecodeBase64File.ps1)
+
+## Using the 0script containing the functions instead of separate scripts
+
 Before transforming it to a PowerShell module, we for now publish it as a .ps1 script, that you must dot source to be able to use the functions defined inside this script.
 
 ## Mode information - How to use the functions
