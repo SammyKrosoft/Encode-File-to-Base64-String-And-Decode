@@ -64,32 +64,32 @@ If(!(Test-Path $FilePath)){
 }
 
 If ([string]::IsNullOrEmpty($DestinationBase64StringFile)) {
-    Write-Verbose "-DestinationBase64StringFile not specified ...  constructing with current file name specified: $FilePath"
+    Write-Host "-DestinationBase64StringFile not specified ...  constructing with current file name specified: $FilePath" -ForegroundColor Green
     $strFileName = ($objFile).Name
     $strFileNameOneWord = ($strFileName -split "\.") -join ""
     $DestinationBase64StringFile = $strFileNameOneWord + ".txt"
-    Write-Verbose "-DestinationBase64StringFile constructed from $FilePath : $DestinationBase64StringFile"
+    Write-Host "-DestinationBase64StringFile constructed from $FilePath : $DestinationBase64StringFile"  -ForegroundColor Green
 }
 
-Write-Verbose "Beginning TRY sequence with current options -Filepath $FilePath and -DestinationBase64StringFile $DestinationBase64StringFile ..."
+Write-Host "Beginning TRY sequence with current options -Filepath $FilePath and -DestinationBase64StringFile $DestinationBase64StringFile ..."  -ForegroundColor Green
 Try {
-    Write-Verbose "Trying to convert file specified to Base64 string... it can be long if the file you try to encode is big !"
+    Write-Host "Trying to convert file specified to Base64 string... it can be long if the file you try to encode is big !"  -ForegroundColor Green
     $Base64String = [Convert]::ToBase64String([IO.File]::ReadAllBytes($objFile.VersionInfo.FileName))
-    Write-Verbose "Finished converting with success !"
-    Write-Verbose "Pouring the Base64 generated code into the destination file $.\$DestinationBase64StringFile"
+    Write-Host "Finished converting with success !" -ForegroundColor Green
+    Write-Host "Pouring the Base64 generated code into the destination file $.\$DestinationBase64StringFile" -ForegroundColor Green
     Set-Content -Value $Base64String -Path ".\$DestinationBase64StringFile"
     Write-Host "Success ! File written: .\$DestinationBase64StringFile" -BackgroundColor Green -ForegroundColor Black
 } Catch {
-    Write-Verbose "Something went wrong ... We're in the CATCH section ..."
+    Write-Host "Something went wrong ... We're in the CATCH section ..." -ForegroundColor Green
     Write-Host "Something went wrong :-("  -ForegroundColor Yellow -BackgroundColor Red
 }
 
 If ($Compress){
-    Write-Verbose "Specified the -Compress parameter, compressing file... "
+    Write-Host "Specified the -Compress parameter, compressing file... " -ForegroundColor Green
     $CompressArchiveFileName = ".\$($DestinationBase64StringFile)_$(Get-Date -F ddMMMyyyy_hhmmss).zip"
-    Write-Verbose "Entering TRY sequence to try to compress the Base64 file to $CompressArchiveFileName"
+    Write-Host "Entering TRY sequence to try to compress the Base64 file to $CompressArchiveFileName" -ForegroundColor Green
     Try {
-        Write-Verbose "Trying to compress (REQUIRES POWERSHELL 5 and above !!)..."
+        Write-Host "Trying to compress (REQUIRES POWERSHELL 5 and above !!)..." -ForegroundColor Green
         Compress-Archive -LiteralPath $DestinationBase64StringFile -DestinationPath $CompressArchiveFileName -CompressionLevel Optimal -Force
         Write-Verbose "File successfully compressed to $CompressArchiveFileName !"
         Write-Host "Don't forget to uncompress the file before running it through DecodeBase64File.ps1 script !" -ForegroundColor Red

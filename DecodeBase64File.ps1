@@ -49,6 +49,14 @@ param (
 
 $StopWatch = [System.Diagnostics.Stopwatch]::StartNew()
 
+
+Function WriteGreen {
+    param(
+        [string]$message
+    )
+    write-Host $message -ForegroundColor Green
+}
+
 If(!(Test-Path $FilePathContainingBase64Code)){
     Write-Host "File specified $FilePathContainingBase64Code not found ... please use an existing file path and try again !" -ForegroundColor Yellow -BackgroundColor Red
     $StopWatch.Stop()
@@ -64,34 +72,35 @@ If(!(Test-Path $FilePathContainingBase64Code)){
 # Example : $FilePathContainingBase64Code = "Timberexe.txt" that will become Timberexe, then Timber, then Timber.exe
 
 if ($DestinationFile -eq "" -or $DestinationFile -eq $null){
-    Write-Verbose "-DestinationFile parameter not specified ... constructing with current Base64 file name specified: $FilePathContainingBase64Code"
-    $FilePathContainingBase64CodeWithoutTXT = $FilePathContainingBase64Code.Substring(0,$FilePathContainingBase64Code.Length - 4)
-    Write-verbose "FilePathContainingBase64WithoutTXT   = $FilePathContainingBase64CodeWithoutTXT"
-    $DestinationFileExtension = $FilePathContainingBase64CodeWithoutTXT.Substring($FilePathContainingBase64CodeWithoutTXT.Length - 3)
-    Write-Verbose "DestinationFileExtension             = $DestinationFileExtension"
-    $DestinationFileNameWithoutExtension = $FilePathContainingBase64CodeWithoutTXT.Substring(0, $FilePathContainingBase64CodeWithoutTXT.Length - 3)
-    Write-Verbose "DEstinationFileNameWithoutExtension  = $DestinationFileNameWithoutExtension"
-    $DestinationFile = $DestinationFileNameWithoutExtension + "." + $DestinationFileExtension
-    Write-Verbose "Destination file constructed: $DestinationFile"
-    # Adding local user Downloads folder path for destination file - removing .\ first
-    $DestinationFileWithoutLocalPathNotation = $DestinationFile.Substring(2)
-    Write-Verbose "DEstinationFile without local path notation  =   $DestinationFileWithoutLocalPathNotation"
+    WriteGreen "-DestinationFile parameter not specified ... constructing with current Base64 file name specified: $FilePathContainingBase64Code"
+    $FileName64Txt = Split-Path $FilePathContainingBase64Code -Leaf
+    $FilePath64 = Split-Path $FilePathContainingBase64Code -Parent
+
+    $FileName64 = $FileName64Txt.Substring(0,$FileName64Txt.Length - 4)
+    
+    WriteGreen "File Name without TXT extension............$FileName64"
+    $FileExt = $FileName64.Substring($FileName64.Length - 3)
+    WriteGreen "Destination File Extension.................$FileExt"
+    $FileNameNoExt = $FileName64.Substring(0, $FileName64.Length - 3)
+    WriteGreen "Destination File Name Without Extension....$FileNameNoExt"
+    $FileName = $FileNameNoExt + "." + $FileExt
+    WriteGreen "Destination file constructed: $FileName"
     #Adding Downloads folder
-    $DestinationFile = ($Env:userprofile) + "\Downloads\" + $DestinationFileWithoutLocalPathNotation
-    Write-Verbose "Final destination file               =   $DestinationFile"
+    $DestinationFile = ($Env:userprofile) + "\Downloads\" + $FileName
+    WriteGreen "Final destination file and Path          =   $DestinationFile"
 
 } Else {
-    Write-Verbose "-DestinationFile parameter specified : $DestinationFile"
+    WriteGreen "-DestinationFile parameter specified : $DestinationFile"
 }
 
-Write-Verbose "Beginning TRY sequence with parameters specified -FilePathContainingBase64Code as $FilePathContainingBase64Code and -DestinationFile as $DestinationFile"
+WriteGreen "Beginning TRY sequence with parameters specified -FilePathContainingBase64Code as $FilePathContainingBase64Code and -DestinationFile as $DestinationFile"
 Try {
-    Write-Verbose "Trying to read the Base 64 content from file specified : $FilePathContainingBase64Code"
+    WriteGreen "Trying to read the Base 64 content from file specified : $FilePathContainingBase64Code"
     $Base64Content = Get-Content -Path $FilePathContainingBase64Code
     [IO.File]::WriteAllBytes($DestinationFile, [Convert]::FromBase64String($Base64Content))
     Write-Host "Success ! File written: $DestinationFile" -BackgroundColor Green -ForegroundColor Black
 } Catch {
-    Write-Verbose "Something went wrong ... We're in the CATCH section..."
+    WriteGreen "Something went wrong ... We're in the CATCH section..."
     Write-Host "Something went wrong :-(" -ForegroundColor Yellow -BackgroundColor Red
 }
 $StopWatch.Stop()
