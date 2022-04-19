@@ -5,6 +5,7 @@
 You can download the scripts separately (one for Encoding a file to Base64, one for decoding a file from Base64 encoded file) - **Right-Click "Save As" to save it to your drive**:
 
 [Download the standalone EncodeBase64ToFile.ps1](https://raw.githubusercontent.com/SammyKrosoft/Encode-File-to-Base64-String-And-Decode/master/EncodeBase64ToFile.ps1)
+
 [Download the standalone DecodeBase64File.ps1](https://raw.githubusercontent.com/SammyKrosoft/Encode-File-to-Base64-String-And-Decode/master/DecodeBase64File.ps1)
 
 ## Using the 0script containing the functions instead of separate scripts
