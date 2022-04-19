@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 1.2.1
+.VERSION 1.3
 
 .GUID 0c680374-770b-4ec8-a924-ab9bdb1c4ace
 
@@ -15,6 +15,7 @@
 .PROJECTURI https://github.com/SammyKrosoft/Encode-File-to-Base64-String-And-Decode
 
 .RELEASENOTES
+v1.3 - Fix file name manipulations to reconstruct original name (was messed up :/)
 v1.2.1 - renamed DecodeBase64StringFromFile to DecodeBase64FromFile
 v1.2 - Added link to the Github original repository
 v1.1 - Added explanations to dot source this script to be able to use the EncodeBase64 / DecodeBase64 functions
