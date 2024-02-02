@@ -8,11 +8,11 @@ You can download the scripts separately (one for Encoding a file to Base64, one 
 
 [Download the standalone DecodeBase64File.ps1](https://raw.githubusercontent.com/SammyKrosoft/Encode-File-to-Base64-String-And-Decode/master/DecodeBase64File.ps1)
 
-## Using the 0script containing the functions instead of separate scripts
+## Using the script containing the functions instead of separate scripts
 
 Before transforming it to a PowerShell module, we for now publish it as a .ps1 script, that you must dot source to be able to use the functions defined inside this script.
 
-## Mode information - How to use the functions
+## More information - How to use the functions
 
 You must dot source this script to be able to use the functions described below :grin: :grin:
 
